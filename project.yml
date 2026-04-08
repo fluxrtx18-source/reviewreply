@@ -1,0 +1,191 @@
+name: ReviewReply
+options:
+  bundleIdPrefix: com.reviewreply
+  deploymentTarget:
+    iOS: "26.0"
+  xcodeVersion: "16.2"
+  generateEmptyDirectories: true
+  defaultConfig: Debug
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    IPHONEOS_DEPLOYMENT_TARGET: "26.0"
+    TARGETED_DEVICE_FAMILY: "1"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    SWIFT_STRICT_CONCURRENCY: complete
+    ENABLE_PREVIEWS: YES
+    DEVELOPMENT_TEAM: "RS8JSBN29A"
+    CODE_SIGN_STYLE: Automatic
+    CODE_SIGN_IDENTITY: "Apple Development"
+
+configs:
+  Debug: debug
+  Release: release
+
+targets:
+
+  # ── Main App ──────────────────────────────────────────────────────────────
+  ReviewReply:
+    type: application
+    platform: iOS
+    deploymentTarget: "26.0"
+
+    entitlements:
+      path: ReviewReply/ReviewReply.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.reviewreply.shared
+        com.apple.developer.in-app-payments:
+          - merchant.com.reviewreply
+
+    sources:
+      - path: ReviewReply
+        excludes:
+          - "**/.DS_Store"
+
+    resources:
+      - path: ReviewReply/Resources/Assets.xcassets
+
+    info:
+      path: ReviewReply/Resources/Info.plist
+      properties:
+        CFBundleDisplayName: ReviewReply
+        ITSAppUsesNonExemptEncryption: false
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+          - UIInterfaceOrientationPortraitUpsideDown
+        UIRequiresFullScreen: false
+        CFBundleURLTypes:
+          - CFBundleURLSchemes:
+              - reviewreply
+        NSExtensionFileProviderDocumentGroup: group.com.reviewreply.shared
+
+    settings:
+      base:
+        PRODUCT_NAME: ReviewReply
+        PRODUCT_BUNDLE_IDENTIFIER: com.reviewreply
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        INFOPLIST_FILE: ReviewReply/Resources/Info.plist
+
+    dependencies:
+      - framework: FoundationModels.framework
+        embed: false
+      - framework: SwiftData.framework
+        embed: false
+      - framework: StoreKit.framework
+        embed: false
+      - target: ShareExtension
+        embed: true
+      - target: KeyboardExtension
+        embed: true
+
+  # ── Unit Tests ────────────────────────────────────────────────────────────
+  ReviewReplyTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "26.0"
+
+    sources:
+      - path: ReviewReplyTests
+
+    resources:
+      - path: ReviewReply/Resources/ReviewReplyProducts.storekit
+
+    settings:
+      base:
+        PRODUCT_NAME: ReviewReplyTests
+        PRODUCT_BUNDLE_IDENTIFIER: com.reviewreply.tests
+        SWIFT_VERSION: "6.0"
+        IPHONEOS_DEPLOYMENT_TARGET: "26.0"
+        GENERATE_INFOPLIST_FILE: YES
+
+    dependencies:
+      - target: ReviewReply
+      - framework: FoundationModels.framework
+        embed: false
+      - framework: SwiftData.framework
+        embed: false
+
+  # ── Share Extension ───────────────────────────────────────────────────────
+  ShareExtension:
+    type: app-extension
+    platform: iOS
+    deploymentTarget: "26.0"
+
+    entitlements:
+      path: ShareExtension/ShareExtension.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.reviewreply.shared
+
+    sources:
+      - path: ShareExtension
+        excludes:
+          - "**/.DS_Store"
+
+    info:
+      path: ShareExtension/Info.plist
+      properties:
+        CFBundleDisplayName: ReviewReply
+        NSExtension:
+          NSExtensionAttributes:
+            NSExtensionActivationRule:
+              NSExtensionActivationSupportsText: true
+              NSExtensionActivationSupportsWebPageWithMaxCount: 1
+          NSExtensionPointIdentifier: com.apple.share-services
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).ShareViewController
+
+    settings:
+      base:
+        PRODUCT_NAME: ShareExtension
+        PRODUCT_BUNDLE_IDENTIFIER: com.reviewreply.share
+        INFOPLIST_FILE: ShareExtension/Info.plist
+        SWIFT_VERSION: "6.0"
+        IPHONEOS_DEPLOYMENT_TARGET: "26.0"
+
+    dependencies:
+      - framework: FoundationModels.framework
+        embed: false
+
+  # ── Keyboard Extension ────────────────────────────────────────────────────
+  KeyboardExtension:
+    type: app-extension
+    platform: iOS
+    deploymentTarget: "26.0"
+
+    entitlements:
+      path: KeyboardExtension/KeyboardExtension.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.reviewreply.shared
+
+    sources:
+      - path: KeyboardExtension
+        excludes:
+          - "**/.DS_Store"
+
+    info:
+      path: KeyboardExtension/Info.plist
+      properties:
+        CFBundleDisplayName: ReviewReply Keys
+        NSExtension:
+          NSExtensionAttributes:
+            IsASCIICapable: false
+            PrefersRightToLeft: false
+            PrimaryLanguage: en-US
+            RequestsOpenAccess: false
+          NSExtensionPointIdentifier: com.apple.keyboard-service
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).KeyboardViewController
+
+    settings:
+      base:
+        PRODUCT_NAME: KeyboardExtension
+        PRODUCT_BUNDLE_IDENTIFIER: com.reviewreply.keyboard
+        INFOPLIST_FILE: KeyboardExtension/Info.plist
+        SWIFT_VERSION: "6.0"
+        IPHONEOS_DEPLOYMENT_TARGET: "26.0"

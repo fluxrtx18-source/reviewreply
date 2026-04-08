@@ -1,0 +1,78 @@
+{
+  "identifier" : "F4D3B2A1-0000-0000-0000-000000000001",
+  "type" : "Configuration",
+  "version" : 3,
+  "subscriptionGroups" : [
+    {
+      "id" : "21400001",
+      "localizations" : [
+        {
+          "description" : "Unlimited access to ReviewReply Pro features",
+          "displayName" : "ReviewReply Pro",
+          "locale" : "en_US"
+        }
+      ],
+      "name" : "ReviewReply Pro",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [],
+          "codeOffers" : [],
+          "displayPrice" : "9.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "id" : "com.reviewreply.monthly",
+          "internalID" : "A1000001",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Unlimited replies, all tones, full history",
+              "displayName" : "Monthly",
+              "locale" : "en_US"
+            }
+          ],
+          "name" : "Monthly",
+          "productID" : "com.reviewreply.monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Monthly",
+          "subscriptionGroupID" : "21400001",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [],
+          "codeOffers" : [],
+          "displayPrice" : "59.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "id" : "com.reviewreply.annual",
+          "internalID" : "A1000002",
+          "introductoryOffer" : {
+            "internalID" : "IO000001",
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P1W"
+          },
+          "localizations" : [
+            {
+              "description" : "Unlimited replies, all tones, full history — best value",
+              "displayName" : "Annual",
+              "locale" : "en_US"
+            }
+          ],
+          "name" : "Annual",
+          "productID" : "com.reviewreply.annual",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Annual",
+          "subscriptionGroupID" : "21400001",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "0",
+    "_developerTeamID" : "RS8JSBN29A",
+    "_failTransactionsEnabled" : false,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : []
+  }
+}
