@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReviewReply — Support</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1d1d1f; background: #fff; }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        .logo { font-size: 20px; font-weight: 700; color: #1d1d1f; text-decoration: none; }
+        nav a { color: #555; text-decoration: none; margin-left: 28px; font-size: 15px; }
+        nav a:hover { color: #007aff; }
+        .content { max-width: 700px; margin: 0 auto; padding: 48px 24px 80px; }
+        h1 { font-size: 36px; font-weight: 800; margin-bottom: 12px; }
+        .intro { font-size: 18px; color: #555; margin-bottom: 48px; line-height: 1.6; }
+        h2 { font-size: 22px; font-weight: 700; margin-bottom: 16px; margin-top: 48px; }
+        .faq { border-top: 1px solid #e5e5e5; }
+        details {
+            border-bottom: 1px solid #e5e5e5;
+            padding: 20px 0;
+        }
+        summary {
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        summary::-webkit-details-marker { display: none; }
+        summary::after {
+            content: '+';
+            font-size: 22px;
+            font-weight: 400;
+            color: #86868b;
+            transition: transform 0.2s;
+        }
+        details[open] summary::after {
+            transform: rotate(45deg);
+        }
+        details p {
+            font-size: 15px;
+            color: #444;
+            line-height: 1.7;
+            margin-top: 14px;
+            padding-right: 32px;
+        }
+        .contact-card {
+            background: #f5f0ff;
+            border-radius: 20px;
+            padding: 36px;
+            margin-top: 48px;
+            text-align: center;
+        }
+        .contact-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+        .contact-card p { font-size: 16px; color: #555; margin-bottom: 24px; line-height: 1.6; }
+        .contact-card a {
+            display: inline-block;
+            background: #007aff;
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        footer {
+            text-align: center;
+            padding: 32px 24px;
+            border-top: 1px solid #e5e5e5;
+            color: #86868b;
+            font-size: 14px;
+        }
+        footer a { color: #86868b; text-decoration: none; margin: 0 12px; }
+        footer a:hover { color: #007aff; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a class="logo" href="/">ReviewReply</a>
+    <div>
+        <a href="/support">Support</a>
+        <a href="/privacy">Privacy</a>
+    </div>
+</nav>
+
+<div class="content">
+    <h1>Support</h1>
+    <p class="intro">We're here to help. Find answers to common questions below, or get in touch directly.</p>
+
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq">
+        <details>
+            <summary>How does the on-device AI work?</summary>
+            <p>ReviewReply uses Apple's Foundation Models framework, which runs entirely on your iPhone's Neural Engine. Your review text is processed locally — it never leaves your device and is never sent to any external server.</p>
+        </details>
+
+        <details>
+            <summary>What is the free daily limit?</summary>
+            <p>Free users can generate one AI response set per day. Each generation produces three responses in different tones. Upgrade to ReviewReply Pro for unlimited daily generations.</p>
+        </details>
+
+        <details>
+            <summary>How do I manage or cancel my subscription?</summary>
+            <p>All subscriptions are managed through Apple. To cancel, open the Settings app on your iPhone → tap your name → Subscriptions → ReviewReply Pro → Cancel Subscription. You can also manage it from the App Store.</p>
+        </details>
+
+        <details>
+            <summary>How do I restore my purchase on a new device?</summary>
+            <p>Open ReviewReply, go to Settings, and tap "Restore Purchases." As long as you're signed in with the same Apple ID, your Pro subscription will be restored automatically.</p>
+        </details>
+
+        <details>
+            <summary>How do I use the Share Extension?</summary>
+            <p>When viewing a review in your browser or any app, tap the Share button and select "ReviewReply" from the share sheet. The review text will be pre-filled and ready for generation.</p>
+        </details>
+
+        <details>
+            <summary>How does the Keyboard Extension work?</summary>
+            <p>After generating a response in ReviewReply, your most recent reply is saved to the keyboard extension. When typing a reply anywhere, switch to the ReviewReply keyboard to paste your saved response instantly.</p>
+        </details>
+
+        <details>
+            <summary>Can I create custom tone profiles?</summary>
+            <p>Yes. In the Settings tab, tap "Manage Tones" to create, edit, or delete tone profiles. Each tone has a name, emoji, and a custom instruction that guides the AI's writing style.</p>
+        </details>
+
+        <details>
+            <summary>My responses aren't generating. What should I check?</summary>
+            <p>Foundation Models requires iOS 26 or later on a supported device. If responses aren't generating, make sure your device is up to date and that on-device AI features are enabled in your iPhone's settings under Apple Intelligence.</p>
+        </details>
+
+        <details>
+            <summary>How do I delete my data?</summary>
+            <p>All ReviewReply data is stored locally on your device. To delete everything, simply uninstall the app. No data is stored on any server, so there's nothing to request deletion of remotely.</p>
+        </details>
+    </div>
+
+    <div class="contact-card">
+        <h3>Still need help?</h3>
+        <p>Can't find what you're looking for? Send us an email and we'll get back to you as soon as possible.</p>
+        <a href="mailto:gsardahuso@gmail.com">Email Support</a>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 ReviewReply &nbsp;·&nbsp; <a href="/privacy">Privacy Policy</a> &nbsp;·&nbsp; <a href="/support">Support</a></p>
+</footer>
+
+</body>
+</html>

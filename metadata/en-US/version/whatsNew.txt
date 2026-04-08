@@ -1,0 +1,8 @@
+Welcome to ReviewReply 1.0!
+
+- Paste any review from Google, Yelp, App Store, or TripAdvisor
+- Get 3 professional responses in different tones (Apologetic, Professional, Grateful)
+- Fully customizable tones — create your own AI response styles
+- Share Extension for instant replies from any app
+- Keyboard Extension to paste saved responses anywhere
+- 100% on-device AI — your reviews never leave your phone

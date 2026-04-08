@@ -1,0 +1,30 @@
+ReviewReply helps small business owners respond to customer reviews professionally — in seconds, not minutes.
+
+Paste a 1-star review from Google, Yelp, App Store, or TripAdvisor. ReviewReply generates 3 professional response options in different tones — Apologetic, Professional, and Grateful — so you can pick the one that fits and post it immediately.
+
+WHAT MAKES REVIEWREPLY DIFFERENT
+
+- 100% On-Device AI: Powered by Apple's Foundation Models. Your reviews never leave your iPhone. No cloud. No data collection.
+
+- 3 Tones, 1 Tap: Get three ready-to-post responses in Apologetic, Professional, and Grateful styles. Copy your favorite and paste it directly into Google Maps, Yelp, or App Store Connect.
+
+- Fully Customizable Tones: Don't like the defaults? Create your own tones with custom AI instructions. Be Empathetic, Firm, Playful — whatever fits your brand.
+
+- Review History: Every review and response is saved locally. Search, revisit, and reuse your best replies.
+
+- Share Extension: Share a review directly from Google Maps or Yelp into ReviewReply for an instant professional response.
+
+- Keyboard Extension: Access your saved responses from any app. Switch to ReviewReply Keys and tap to paste your reply.
+
+WHO IT'S FOR
+
+Small business owners, restaurant managers, salon owners, app developers, hotel managers — anyone who responds to online reviews and wants to sound professional under pressure.
+
+PRICING
+
+- Free: 1 professional reply per day
+- ReviewReply Pro: Unlimited replies, all tones, full history — $9.99/month or $59.99/year
+
+PRIVACY FIRST
+
+ReviewReply uses Apple's on-device AI. Your review text is never uploaded, stored on servers, or shared with third parties. What happens on your iPhone stays on your iPhone.

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReviewReply — AI Review Responses for Small Business</title>
+    <meta name="description" content="Turn bad reviews into business wins. Get 3 professional AI responses instantly — 100% on-device, 100% private.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1d1d1f; background: #fff; }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        .logo { font-size: 20px; font-weight: 700; color: #1d1d1f; text-decoration: none; }
+        nav a { color: #555; text-decoration: none; margin-left: 28px; font-size: 15px; }
+        nav a:hover { color: #007aff; }
+
+        .hero {
+            text-align: center;
+            padding: 90px 24px 80px;
+            background: linear-gradient(160deg, #f5f0ff 0%, #fff 60%);
+        }
+        .hero-badge {
+            display: inline-block;
+            background: #ede4ff;
+            color: #6b2fff;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+        }
+        h1 { font-size: clamp(36px, 6vw, 64px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; max-width: 760px; margin: 0 auto 20px; }
+        .hero p { font-size: 20px; color: #555; max-width: 520px; margin: 0 auto 40px; line-height: 1.6; }
+
+        .cta-group { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #007aff;
+            color: #fff;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 14px;
+            font-size: 17px;
+            font-weight: 600;
+        }
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            background: #f5f5f7;
+            color: #1d1d1f;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 14px;
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .features { padding: 80px 24px; max-width: 1000px; margin: 0 auto; }
+        .features h2 { font-size: 36px; font-weight: 700; text-align: center; margin-bottom: 16px; }
+        .features .sub { text-align: center; color: #555; font-size: 18px; margin-bottom: 56px; }
+
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+        .feature-card {
+            background: #f9f9fb;
+            border-radius: 20px;
+            padding: 32px;
+        }
+        .feature-icon { font-size: 36px; margin-bottom: 16px; }
+        .feature-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+        .feature-card p { font-size: 16px; color: #555; line-height: 1.6; }
+
+        .privacy-strip {
+            background: #f0f9f0;
+            border-radius: 20px;
+            padding: 40px 48px;
+            margin: 0 24px 80px;
+            max-width: 960px;
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+        .privacy-strip .icon { font-size: 48px; flex-shrink: 0; }
+        .privacy-strip h3 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+        .privacy-strip p { font-size: 16px; color: #444; line-height: 1.6; }
+
+        footer {
+            text-align: center;
+            padding: 40px 24px;
+            border-top: 1px solid #e5e5e5;
+            color: #86868b;
+            font-size: 14px;
+        }
+        footer a { color: #86868b; text-decoration: none; margin: 0 12px; }
+        footer a:hover { color: #007aff; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a class="logo" href="/">ReviewReply</a>
+    <div>
+        <a href="/support">Support</a>
+        <a href="/privacy">Privacy</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="hero-badge">Available on the App Store</div>
+    <h1>Reply to every review in seconds</h1>
+    <p>Paste any review from Google, Yelp, or the App Store. Get 3 professional responses instantly — 100% on-device AI, 100% private.</p>
+    <div class="cta-group">
+        <a class="btn-primary" href="https://apps.apple.com/app/reviewreply">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            Download on App Store
+        </a>
+        <a class="btn-secondary" href="#features">See features</a>
+    </div>
+</section>
+
+<section class="features" id="features">
+    <h2>Everything a small business needs</h2>
+    <p class="sub">Stop dreading bad reviews. ReviewReply makes responding fast, professional, and effortless.</p>
+
+    <div class="feature-grid">
+        <div class="feature-card">
+            <div class="feature-icon">⚡️</div>
+            <h3>3 Responses Instantly</h3>
+            <p>Paste any review and get three distinct, professional responses in different tones — ready to copy and post.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🎨</div>
+            <h3>Fully Customizable Tones</h3>
+            <p>Create your own tone profiles with a custom name, emoji, and instructions to match your brand voice perfectly.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <h3>Share & Keyboard Extensions</h3>
+            <p>Reply directly from any app with the Share Extension, or paste saved responses anywhere with the Keyboard Extension.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📋</div>
+            <h3>Full Reply History</h3>
+            <p>Every review and response is saved locally so you can revisit and reuse your best replies anytime.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🌐</div>
+            <h3>All Major Platforms</h3>
+            <p>Works with reviews from Google, Yelp, App Store, TripAdvisor, and any other platform.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>100% On-Device AI</h3>
+            <p>Powered by Apple's Foundation Models. Your reviews never leave your iPhone — no servers, no data collection.</p>
+        </div>
+    </div>
+</section>
+
+<div class="privacy-strip">
+    <div class="icon">🛡️</div>
+    <div>
+        <h3>Your reviews are completely private</h3>
+        <p>ReviewReply uses Apple's on-device Foundation Models framework. Your review text is processed entirely on your iPhone — never uploaded to any server, never shared with anyone.</p>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 ReviewReply &nbsp;·&nbsp; <a href="/privacy">Privacy Policy</a> &nbsp;·&nbsp; <a href="/support">Support</a></p>
+</footer>
+
+</body>
+</html>
