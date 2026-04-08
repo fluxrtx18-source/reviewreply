@@ -2,6 +2,7 @@
 *.xcworkspace/xcuserdata/
 *.xcodeproj/xcuserdata/
 *.xcodeproj/project.xcworkspace/xcshareddata/
+**/*.xcuserstate
 DerivedData/
 build/
 *.ipa
@@ -16,5 +17,10 @@ build/
 .DS_Store
 **/.DS_Store
 
-# CocoaPods (not used but just in case)
+# CocoaPods
 Pods/
+
+# Claude Code internals
+.claude/
+.tldr/
+.tldrignore
