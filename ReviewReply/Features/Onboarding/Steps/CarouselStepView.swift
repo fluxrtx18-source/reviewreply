@@ -46,14 +46,20 @@ struct CarouselStepView: View {
                 .padding(.bottom, 36)
 
                 // CTA
-                Button(currentCard < OnboardingFeatureCard.all.count - 1 ? "Continue" : "Next") {
-                    if currentCard < OnboardingFeatureCard.all.count - 1 {
-                        withAnimation(.spring(response: 0.4)) { currentCard += 1 }
-                    } else {
-                        onContinue()
+                VStack(spacing: 12) {
+                    Button(currentCard < OnboardingFeatureCard.all.count - 1 ? "Continue" : "Next") {
+                        if currentCard < OnboardingFeatureCard.all.count - 1 {
+                            withAnimation(.spring(response: 0.4)) { currentCard += 1 }
+                        } else {
+                            onContinue()
+                        }
+                    }
+                    .buttonStyle(PrimaryButtonStyle())
+
+                    if let proof = SocialProofItem.forStep(.features) {
+                        SocialProofBadge(item: proof)
                     }
                 }
-                .buttonStyle(PrimaryButtonStyle())
                 .padding(.horizontal, 24)
                 .padding(.bottom, 44)
             }

@@ -5,18 +5,25 @@ import Foundation
 // MARK: - UsageLimiter Tests
 
 @Suite("UsageLimiter", .serialized)
+@MainActor
 struct UsageLimiterTests {
 
     private let key = "com.reviewreply.lastFreeReplyDate"
 
+    /// Returns the defaults instance that UsageLimiter uses (shared group or .standard fallback).
+    private var defaults: UserDefaults {
+        UserDefaults(suiteName: UserDefaultsKeys.sharedGroupID) ?? .standard
+    }
+
     init() {
         // Clean state before each test
-        UserDefaults.standard.removeObject(forKey: key)
+        let d = UserDefaults(suiteName: UserDefaultsKeys.sharedGroupID) ?? .standard
+        d.removeObject(forKey: key)
     }
 
     @Test("Fresh install allows free usage")
     func freshInstallAllowsFree() {
-        UserDefaults.standard.removeObject(forKey: key)
+        defaults.removeObject(forKey: key)
         #expect(UsageLimiter.canUseForFree == true)
     }
 
@@ -29,7 +36,7 @@ struct UsageLimiterTests {
     @Test("Usage from yesterday allows free usage today")
     func yesterdayUsageAllowsToday() {
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
-        UserDefaults.standard.set(yesterday, forKey: key)
+        defaults.set(yesterday, forKey: key)
         #expect(UsageLimiter.canUseForFree == true)
     }
 
@@ -54,7 +61,7 @@ struct UsageLimiterTests {
 
     @Test("Next reset date is nil when no usage recorded")
     func noUsageNoReset() {
-        UserDefaults.standard.removeObject(forKey: key)
+        defaults.removeObject(forKey: key)
         #expect(UsageLimiter.nextResetDate == nil)
     }
 
@@ -68,7 +75,7 @@ struct UsageLimiterTests {
 
     @Test("Reset countdown returns empty when no usage")
     func countdownNoUsage() {
-        UserDefaults.standard.removeObject(forKey: key)
+        defaults.removeObject(forKey: key)
         #expect(UsageLimiter.resetCountdown.isEmpty)
     }
 }

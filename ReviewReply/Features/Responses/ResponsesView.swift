@@ -115,7 +115,6 @@ private struct ReviewSummaryHeader: View {
 private struct TransientResponseCard: View {
 
     let response: AIReviewResponse
-    @State private var copied = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
@@ -155,31 +154,7 @@ private struct TransientResponseCard: View {
             }
 
             // Copy
-            Button {
-                UIPasteboard.general.string = response.response
-                SharedResponseStore.append(response.response)
-                withAnimation { copied = true }
-                UINotificationFeedbackGenerator().notificationOccurred(.success)
-                Task {
-                    try? await Task.sleep(for: .seconds(2))
-                    await MainActor.run { withAnimation { copied = false } }
-                }
-            } label: {
-                HStack(spacing: 6) {
-                    Image(systemName: copied ? "checkmark" : "doc.on.doc")
-                        .font(.system(size: 13, weight: .semibold))
-                    Text(copied ? "Copied!" : "Copy Response")
-                        .font(.system(size: 14, weight: .semibold))
-                }
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 11)
-                .background(
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(copied ? Theme.Colors.success.opacity(0.15) : Theme.Colors.primary.opacity(0.1))
-                )
-                .foregroundStyle(copied ? Theme.Colors.success : Theme.Colors.primary)
-            }
-            .buttonStyle(.plain)
+            CopyResponseButton(text: response.response)
         }
         .padding(16)
         .background(

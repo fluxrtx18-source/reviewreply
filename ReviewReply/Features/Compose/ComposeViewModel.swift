@@ -145,4 +145,9 @@ final class ComposeViewModel {
     var canGenerate: Bool {
         !reviewText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && !isGenerating
     }
+
+    /// Whether to show the usage limit banner (checked via view model, not in view body).
+    func shouldShowUsageBanner(isPremium: Bool) -> Bool {
+        !isPremium && !UsageLimiter.canUseForFree
+    }
 }

@@ -128,7 +128,7 @@ private struct ComposeFormView: View {
                 }
 
                 // ── Usage Banner ─────────────────────────────────────────
-                if !store.isPremium && !UsageLimiter.canUseForFree {
+                if viewModel.shouldShowUsageBanner(isPremium: store.isPremium) {
                     UsageLimitBanner()
                 }
 

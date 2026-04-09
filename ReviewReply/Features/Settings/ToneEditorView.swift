@@ -89,21 +89,26 @@ private struct ToneRow: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            Text(tone.emoji).font(.title2)
-            VStack(alignment: .leading, spacing: 3) {
-                Text(tone.name)
-                    .font(.system(size: 15, weight: .semibold))
-                Text(tone.instruction)
-                    .font(.caption)
-                    .foregroundStyle(Color(.secondaryLabel))
-                    .lineLimit(2)
+            // Tappable label area opens edit sheet
+            Button(action: onEdit) {
+                HStack(spacing: 12) {
+                    Text(tone.emoji).font(.title2)
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text(tone.name)
+                            .font(.system(size: 15, weight: .semibold))
+                            .foregroundStyle(Color(.label))
+                        Text(tone.instruction)
+                            .font(.caption)
+                            .foregroundStyle(Color(.secondaryLabel))
+                            .lineLimit(2)
+                    }
+                }
             }
+            .buttonStyle(.plain)
             Spacer()
             Toggle("", isOn: Binding(get: { tone.isEnabled }, set: { tone.isEnabled = $0 }))
                 .labelsHidden()
         }
-        .contentShape(Rectangle())
-        .onTapGesture { onEdit() }
     }
 }
 

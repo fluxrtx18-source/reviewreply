@@ -20,7 +20,7 @@ struct DashboardView: View {
                 .tabItem { Label("Settings", systemImage: "gearshape") }
                 .tag(2)
         }
-        .onAppear {
+        .task {
             AppModelContainer.seedDefaultTonesIfNeeded(context: modelContext)
         }
         .onOpenURL { url in

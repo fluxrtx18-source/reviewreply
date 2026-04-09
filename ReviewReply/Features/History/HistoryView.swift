@@ -3,6 +3,8 @@ import SwiftData
 
 struct HistoryView: View {
 
+    @Environment(\.modelContext) private var modelContext
+
     @Query(sort: \ReviewSession.createdAt, order: .reverse)
     private var sessions: [ReviewSession]
 
@@ -47,8 +49,6 @@ struct HistoryView: View {
             .navigationBarTitleDisplayMode(.large)
         }
     }
-
-    @Environment(\.modelContext) private var modelContext
 
     private func deleteSessions(at offsets: IndexSet) {
         for i in offsets {

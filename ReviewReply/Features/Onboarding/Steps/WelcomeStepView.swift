@@ -101,13 +101,23 @@ struct WelcomeStepView: View {
                 .animation(.easeOut(duration: 0.5).delay(0.15), value: isAnimating)
 
                 Spacer()
+
+                // ── Testimonial Carousel ──────────────────────────────────
+                TestimonialCarouselView()
+
                 Spacer()
 
                 // ── CTA ───────────────────────────────────────────────────
-                Button("Get Started", action: onContinue)
-                    .buttonStyle(PrimaryButtonStyle())
-                    .padding(.horizontal, 24)
-                    .padding(.bottom, 16)
+                VStack(spacing: 12) {
+                    Button("Get Started", action: onContinue)
+                        .buttonStyle(PrimaryButtonStyle())
+
+                    if let proof = SocialProofItem.forStep(.welcome) {
+                        SocialProofBadge(item: proof)
+                    }
+                }
+                .padding(.horizontal, 24)
+                .padding(.bottom, 16)
 
                 // Trust badge
                 HStack(spacing: 8) {

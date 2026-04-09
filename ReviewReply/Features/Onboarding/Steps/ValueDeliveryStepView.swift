@@ -40,10 +40,16 @@ struct ValueDeliveryStepView: View {
                 Spacer()
                 Spacer()
 
-                Button("See Pricing", action: onContinue)
-                    .buttonStyle(PrimaryButtonStyle())
-                    .padding(.horizontal, 24)
-                    .padding(.bottom, 44)
+                VStack(spacing: 12) {
+                    Button("See Pricing", action: onContinue)
+                        .buttonStyle(PrimaryButtonStyle())
+
+                    if let proof = SocialProofItem.forStep(.valueProof) {
+                        SocialProofBadge(item: proof)
+                    }
+                }
+                .padding(.horizontal, 24)
+                .padding(.bottom, 44)
             }
         }
         .onAppear {

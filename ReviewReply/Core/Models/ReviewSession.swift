@@ -13,7 +13,7 @@ final class ReviewSession {
     var createdAt: Date
     var isFavorited: Bool
 
-    @Relationship(deleteRule: .cascade)
+    @Relationship(deleteRule: .cascade, inverse: \SavedResponse.session)
     var responses: [SavedResponse]
 
     var platform: ReviewPlatform {
@@ -54,6 +54,7 @@ final class SavedResponse {
     var isFavorited: Bool
     var copiedCount: Int
     var createdAt: Date
+    var session: ReviewSession?
 
     init(tone: String, toneEmoji: String, responseText: String, keyPoints: [String]) {
         self.id           = UUID()

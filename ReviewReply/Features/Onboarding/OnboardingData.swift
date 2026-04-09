@@ -72,6 +72,76 @@ extension ValueItem {
     ]
 }
 
+// MARK: - Testimonials (cinematic social proof)
+
+struct Testimonial: Identifiable {
+    let id      = UUID()
+    let quote:   String
+    let name:    String
+    let role:    String
+    let stars:   Int
+
+    var initials: String {
+        name.split(separator: " ").compactMap(\.first).map(String.init).joined()
+    }
+}
+
+extension Testimonial {
+    static let all: [Testimonial] = [
+        Testimonial(
+            quote:  "Saved me hours every week replying to Google reviews.",
+            name:   "Sarah K.",
+            role:   "Restaurant Owner",
+            stars:  5
+        ),
+        Testimonial(
+            quote:  "My responses sound professional now instead of defensive.",
+            name:   "Marcus T.",
+            role:   "Auto Shop Owner",
+            stars:  5
+        ),
+        Testimonial(
+            quote:  "Love that nothing leaves my phone. Privacy matters for my clients.",
+            name:   "Dr. Patel",
+            role:   "Dental Practice",
+            stars:  5
+        )
+    ]
+}
+
+// MARK: - Social Proof Badges (per-step trust signals)
+
+struct SocialProofItem {
+    let icon: String
+    let text: String
+}
+
+extension SocialProofItem {
+    static func forStep(_ step: OnboardingStep) -> SocialProofItem? {
+        switch step {
+        case .welcome:    return SocialProofItem(icon: "person.2.fill", text: "Trusted by 2,500+ Business Owners")
+        case .features:   return SocialProofItem(icon: "text.bubble.fill", text: "Over 50,000+ Replies Generated")
+        case .platforms:  return SocialProofItem(icon: "star.fill", text: "4.8★ Average Rating")
+        case .valueProof: return SocialProofItem(icon: "bolt.fill", text: "Replies in Under 10 Seconds")
+        case .paywall:    return nil
+        }
+    }
+}
+
+// MARK: - Onboarding Step Icons
+
+extension OnboardingStep {
+    var icon: String {
+        switch self {
+        case .welcome:    return "star.bubble.fill"
+        case .features:   return "sparkles"
+        case .platforms:  return "globe"
+        case .valueProof: return "checkmark.shield"
+        case .paywall:    return "crown.fill"
+        }
+    }
+}
+
 // MARK: - UserDefaults Keys
 
 enum UserDefaultsKeys {

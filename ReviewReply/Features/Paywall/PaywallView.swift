@@ -152,18 +152,18 @@ struct PaywallView: View {
             .buttonStyle(PrimaryButtonStyle(isLoading: store.isLoading))
             .disabled(selectedProduct == nil || store.isLoading)
 
-            HStack(spacing: 16) {
-                if isOnboarding {
-                    Button("Start Free — 1 Reply/Day") { onDismiss() }
-                        .font(.footnote)
-                        .foregroundStyle(Color(.secondaryLabel))
-                } else {
-                    Button("Maybe Later") { onDismiss() }
-                        .font(.footnote)
-                        .foregroundStyle(Color(.secondaryLabel))
-                }
+            if isOnboarding {
+                Button("Start Free — 1 Reply/Day") { onDismiss() }
+                    .font(.footnote)
+                    .foregroundStyle(Color(.secondaryLabel))
+            }
 
-                Button("Restore") {
+            HStack(spacing: 12) {
+                Link("Terms of Use", destination: URL(string: "https://fluxrtx18-source.github.io/reviewreply/terms/")!)
+                Text("•")
+                Link("Privacy Policy", destination: URL(string: "https://fluxrtx18-source.github.io/reviewreply/privacy/")!)
+                Text("•")
+                Button("Restore Purchases") {
                     Task {
                         do {
                             try await store.restorePurchases()
@@ -173,9 +173,10 @@ struct PaywallView: View {
                         }
                     }
                 }
-                .font(.footnote)
-                .foregroundStyle(Color(.secondaryLabel))
             }
+            .font(.system(size: 11))
+            .foregroundStyle(Color(.secondaryLabel))
+            .tint(Color(.secondaryLabel))
 
             Text("Payment will be charged to your Apple ID. Subscriptions auto-renew unless cancelled at least 24 hours before the end of the current period.")
                 .font(.system(size: 10))
@@ -200,8 +201,10 @@ struct PaywallView: View {
         do {
             let success = try await store.purchase(product)
             if success { onDismiss() }
+        } catch is StoreKitError {
+            purchaseError = "Something went wrong with the App Store. Please try again."
         } catch {
-            purchaseError = "Purchase failed: \(error.localizedDescription)"
+            purchaseError = "Purchase couldn't be completed. Please try again."
         }
     }
 }

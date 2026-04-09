@@ -186,7 +186,33 @@ private struct ShareComposeView: View {
         }
     }
 
+    // MARK: - Quota Check (mirrors UsageLimiter using shared group defaults)
+
+    private var isPremium: Bool {
+        let defaults = UserDefaults(suiteName: "group.com.reviewreply.shared")
+        return defaults?.bool(forKey: "com.reviewreply.isPremium") ?? false
+    }
+
+    private var canUseForFree: Bool {
+        let defaults = UserDefaults(suiteName: "group.com.reviewreply.shared") ?? .standard
+        guard let last = defaults.object(forKey: "com.reviewreply.lastFreeReplyDate") as? Date else { return true }
+        return !Calendar.current.isDateInToday(last)
+    }
+
+    private func recordUsage() {
+        let defaults = UserDefaults(suiteName: "group.com.reviewreply.shared")
+        defaults?.set(Date(), forKey: "com.reviewreply.lastFreeReplyDate")
+    }
+
     private func generateReply() async {
+        guard isPremium || canUseForFree else {
+            errorMessage = "Free reply used for today. Open ReviewReply to upgrade or wait until tomorrow."
+            return
+        }
+
+        let shouldTrackUsage = !isPremium
+        if shouldTrackUsage { recordUsage() }
+
         isGenerating = true
         errorMessage = nil
         do {
@@ -198,6 +224,11 @@ private struct ShareComposeView: View {
             )
             generatedReply = result.content
         } catch {
+            // Undo usage on failure so user isn't penalised
+            if shouldTrackUsage {
+                let defaults = UserDefaults(suiteName: "group.com.reviewreply.shared")
+                defaults?.removeObject(forKey: "com.reviewreply.lastFreeReplyDate")
+            }
             errorMessage = "Couldn't generate a reply. Please try in the main app."
         }
         isGenerating = false

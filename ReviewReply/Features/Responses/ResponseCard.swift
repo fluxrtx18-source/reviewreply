@@ -1,13 +1,51 @@
 import SwiftUI
 
+// MARK: - Shared Copy Button (used by ResponseCard and TransientResponseCard)
+
+struct CopyResponseButton: View {
+
+    let text: String
+    var onCopy: (() -> Void)? = nil
+
+    @State private var copied = false
+
+    var body: some View {
+        Button {
+            UIPasteboard.general.string = text
+            SharedResponseStore.append(text)
+            onCopy?()
+            withAnimation { copied = true }
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+            Task {
+                try? await Task.sleep(for: .seconds(2))
+                await MainActor.run { withAnimation { copied = false } }
+            }
+        } label: {
+            HStack(spacing: 6) {
+                Image(systemName: copied ? "checkmark" : "doc.on.doc")
+                    .font(.system(size: 13, weight: .semibold))
+                Text(copied ? "Copied!" : "Copy Response")
+                    .font(.system(size: 14, weight: .semibold))
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 11)
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(copied ? Theme.Colors.success.opacity(0.15) : Theme.Colors.primary.opacity(0.1))
+            )
+            .foregroundStyle(copied ? Theme.Colors.success : Theme.Colors.primary)
+        }
+        .buttonStyle(.plain)
+        .animation(.spring(response: 0.3), value: copied)
+    }
+}
+
 // MARK: - Response Card (used in both ResponsesView and HistoryView)
 
 struct ResponseCard: View {
 
     let response: SavedResponse
     var onCopy: ((String) -> Void)? = nil
-
-    @State private var copied = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
@@ -61,50 +99,16 @@ struct ResponseCard: View {
             }
 
             // ── Copy Button ───────────────────────────────────────────────
-            Button {
-                copyResponse()
-            } label: {
-                HStack(spacing: 6) {
-                    Image(systemName: copied ? "checkmark" : "doc.on.doc")
-                        .font(.system(size: 13, weight: .semibold))
-                    Text(copied ? "Copied!" : "Copy Response")
-                        .font(.system(size: 14, weight: .semibold))
-                }
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 11)
-                .background(
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(copied ? Theme.Colors.success.opacity(0.15) : Theme.Colors.primary.opacity(0.1))
-                )
-                .foregroundStyle(copied ? Theme.Colors.success : Theme.Colors.primary)
+            CopyResponseButton(text: response.responseText) {
+                response.copiedCount += 1
+                onCopy?(response.responseText)
             }
-            .buttonStyle(.plain)
-            .animation(.spring(response: 0.3), value: copied)
         }
         .padding(16)
         .background(
             RoundedRectangle(cornerRadius: Theme.Layout.cardCornerRadius)
                 .fill(Color(.secondarySystemBackground))
         )
-    }
-
-    private func copyResponse() {
-        UIPasteboard.general.string = response.responseText
-        response.copiedCount += 1
-
-        // Persist copied response to shared group for keyboard extension
-        SharedResponseStore.append(response.responseText)
-
-        onCopy?(response.responseText)
-
-        withAnimation { copied = true }
-        let generator = UINotificationFeedbackGenerator()
-        generator.notificationOccurred(.success)
-
-        Task {
-            try? await Task.sleep(for: .seconds(2))
-            await MainActor.run { withAnimation { copied = false } }
-        }
     }
 }
 

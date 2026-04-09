@@ -27,6 +27,8 @@ final class StoreService {
 
     // MARK: - Init
 
+    private var transactionListener: Task<Void, Never>?
+
     private init() {
         listenForTransactions()
         Task { await refreshState() }
@@ -35,7 +37,7 @@ final class StoreService {
     // MARK: - Transaction Listener (MUST run from app launch)
 
     private func listenForTransactions() {
-        Task.detached(priority: .background) { [weak self] in
+        transactionListener = Task(priority: .background) { [weak self] in
             for await result in Transaction.updates {
                 await self?.handle(transactionResult: result)
             }
@@ -67,6 +69,13 @@ final class StoreService {
             purchasedProductIDs.remove(transaction.productID)
         }
         isPremium = !purchasedProductIDs.isEmpty
+        syncPremiumToSharedDefaults()
+    }
+
+    /// Write premium status to shared app group so extensions can read it.
+    private func syncPremiumToSharedDefaults() {
+        let defaults = UserDefaults(suiteName: UserDefaultsKeys.sharedGroupID)
+        defaults?.set(isPremium, forKey: "com.reviewreply.isPremium")
     }
 
     // MARK: - Refresh All State (call on foreground / launch)
@@ -96,6 +105,7 @@ final class StoreService {
         }
         purchasedProductIDs = ids
         isPremium = !ids.isEmpty
+        syncPremiumToSharedDefaults()
     }
 
     // MARK: - Purchase

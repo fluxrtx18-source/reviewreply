@@ -11,7 +11,10 @@ enum AppModelContainer {
         do {
             return try ModelContainer(for: schema, configurations: config)
         } catch {
-            fatalError("Failed to create ModelContainer: \(error)")
+            // Fallback to in-memory store so the app doesn't crash on corrupt database
+            print("[AppModelContainer] Persistent store failed: \(error). Falling back to in-memory.")
+            let fallback = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+            return try! ModelContainer(for: schema, configurations: fallback)
         }
     }()
 

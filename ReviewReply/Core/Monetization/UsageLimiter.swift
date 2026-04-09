@@ -2,30 +2,37 @@ import Foundation
 
 // MARK: - Daily Free Quota Tracker
 // Non-premium users get 1 free reply generation per calendar day.
+// Uses shared app group defaults so extensions can enforce the same quota.
 
-struct UsageLimiter: Sendable {
+@MainActor
+struct UsageLimiter {
 
-    private static let key = "com.reviewreply.lastFreeReplyDate"
+    private static let key = UserDefaultsKeys.lastFreeReplyDate
+
+    /// Shared defaults accessible by app + extensions. Falls back to .standard in tests.
+    private static var defaults: UserDefaults {
+        UserDefaults(suiteName: UserDefaultsKeys.sharedGroupID) ?? .standard
+    }
 
     /// True if the user has not yet used their free reply today.
     static var canUseForFree: Bool {
-        guard let last = UserDefaults.standard.object(forKey: key) as? Date else { return true }
+        guard let last = defaults.object(forKey: key) as? Date else { return true }
         return !Calendar.current.isDateInToday(last)
     }
 
     /// Call this immediately after a successful free generation.
     static func recordUsage() {
-        UserDefaults.standard.set(Date(), forKey: key)
+        defaults.set(Date(), forKey: key)
     }
 
     /// Undo a recorded usage (call when generation fails so user isn't penalised).
     static func undoUsage() {
-        UserDefaults.standard.removeObject(forKey: key)
+        defaults.removeObject(forKey: key)
     }
 
     /// The next date/time the free quota resets (midnight of next calendar day).
     static var nextResetDate: Date? {
-        guard let last = UserDefaults.standard.object(forKey: key) as? Date else { return nil }
+        guard let last = defaults.object(forKey: key) as? Date else { return nil }
         return Calendar.current.date(byAdding: .day, value: 1, to: Calendar.current.startOfDay(for: last))
     }
 

@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Root onboarding container — owns the 5-step state machine.
+/// Root onboarding container — owns the 5-step state machine with cinematic transitions.
 /// Writes `onboardingComplete = true` when the user subscribes or skips.
 struct OnboardingContainerView: View {
 
@@ -8,54 +8,54 @@ struct OnboardingContainerView: View {
 
     @State private var step: OnboardingStep = .welcome
     @State private var selectedPlatforms: Set<String> = []
+    @State private var contentOpacity: Double = 1
 
     var body: some View {
         ZStack {
-            switch step {
-            case .welcome:
-                WelcomeStepView { advance(to: .features) }
-                    .transition(welcomeTransition)
+            // ── Step Content ─────────────────────────────────────────────
+            Group {
+                switch step {
+                case .welcome:
+                    WelcomeStepView { advance(to: .features) }
 
-            case .features:
-                CarouselStepView { advance(to: .platforms) }
-                    .transition(slideTransition)
+                case .features:
+                    CarouselStepView { advance(to: .platforms) }
 
-            case .platforms:
-                PlatformPickerStepView(selected: $selectedPlatforms) { advance(to: .valueProof) }
-                    .transition(slideTransition)
+                case .platforms:
+                    PlatformPickerStepView(selected: $selectedPlatforms) { advance(to: .valueProof) }
 
-            case .valueProof:
-                ValueDeliveryStepView { advance(to: .paywall) }
-                    .transition(slideTransition)
+                case .valueProof:
+                    ValueDeliveryStepView { advance(to: .paywall) }
 
-            case .paywall:
-                PaywallView(onDismiss: complete, isOnboarding: true)
-                    .transition(slideTransition)
+                case .paywall:
+                    PaywallView(onDismiss: complete, isOnboarding: true)
+                }
+            }
+            .opacity(contentOpacity)
+
+            // ── Cinematic Progress Indicator (top overlay, hidden on paywall) ──
+            if step != .paywall {
+                VStack {
+                    OnboardingProgressIndicator(currentStep: step)
+                        .padding(.top, 16)
+                    Spacer()
+                }
             }
         }
-        // Animations are applied explicitly inside advance() for per-step control.
     }
 
-    // MARK: - Transitions  (matches QuizzerAI pattern)
-
-    private var welcomeTransition: AnyTransition {
-        .asymmetric(
-            insertion: .opacity,
-            removal: .move(edge: .leading).combined(with: .opacity)
-        )
-    }
-
-    private var slideTransition: AnyTransition {
-        .asymmetric(
-            insertion: .move(edge: .trailing),
-            removal:   .move(edge: .leading)
-        )
-    }
-
-    // MARK: - Navigation
+    // MARK: - Cinematic Navigation (fade-out → switch → fade-in)
 
     private func advance(to next: OnboardingStep) {
-        withAnimation(.easeInOut(duration: 0.38)) { step = next }
+        withAnimation(.easeOut(duration: 0.25)) {
+            contentOpacity = 0
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+            step = next
+            withAnimation(.easeIn(duration: 0.3)) {
+                contentOpacity = 1
+            }
+        }
     }
 
     private func complete() {
