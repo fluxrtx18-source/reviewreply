@@ -59,7 +59,6 @@ targets:
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
           - UIInterfaceOrientationPortraitUpsideDown
-        UIRequiresFullScreen: false
         CFBundleURLTypes:
           - CFBundleURLSchemes:
               - reviewreply
